@@ -6,7 +6,7 @@
     <article>
       <h2>
         <ul>
-          <li><a href="/users/{{ $user->slug }}" class="text-decoration-none">{{ $user->name }}</a></li>
+          <li><a href="/blog?user={{ $user->slug }}" class="text-decoration-none">{{ $user->name }}</a></li>
         </ul>
       </h2>
     </article>

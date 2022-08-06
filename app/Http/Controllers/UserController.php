@@ -15,12 +15,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function show(User $user){
-        return view('posts', [
-            'title' => "Post By Author: $user->name",
-            'active' => 'user',
-            'posts' => $user->posts->load('user', 'category'),
-            // 'user' => $user->name,
-        ]);
-    }
+    // public function show(User $user){
+    //     return view('posts', [
+    //         'title' => "Post By Author: $user->name",
+    //         'active' => 'user',
+    //         'posts' => $user->posts->load('user', 'category'),
+    //     ]);
+    // }
 }
