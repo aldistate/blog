@@ -65,6 +65,7 @@
   <p class="text-center fs-3">No Post Found</p>
 @endif
 
+{{-- Pagination --}}
 <div class="d-flex justify-content-center">
   {{ $posts->links() }}
 </div>

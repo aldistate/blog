@@ -12,12 +12,10 @@ class PostController extends Controller
 {
     public function index() {
         $title = '';
-
         if (request('category')) {
             $category = Category::firstWhere('slug', request('category'));
             $title = ' in ' . $category->name;
         }
-
         if (request('user')) {
             $user = User::firstWhere('slug', request('user'));
             $title = ' By: ' . $user->name;

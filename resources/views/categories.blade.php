@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-<h1 class="mb-3">Halaman Category</h1>
+<h1 class="mb-3 text-center">Halaman Category</h1>
   <div class="container">
     <div class="row">
       @foreach ($categories as $category)
