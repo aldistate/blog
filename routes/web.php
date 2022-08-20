@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
-use App\Models\Category;
-use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,3 +53,21 @@ Route::get('/users', [UserController::class, 'index']);
 
 // halaman user
 Route::get('/users/{user:slug}', [UserController::class, "show"]);
+
+// halaman login
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+
+// mengirim data login
+Route::post('/login', [LoginController::class, 'authenticate']);
+
+// mengirim data logout
+Route::post('/logout', [LoginController::class, 'logout']);
+
+// halaman register
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+
+// mengirim data register
+Route::post('/register', [RegisterController::class, 'store']);
+
+// halaman dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
