@@ -74,5 +74,7 @@ Route::get('/dashboard', function() {
     return view('dashboard.index');
 })->middleware('auth');
 
+Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth');
+
 // halaman crud posts
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
