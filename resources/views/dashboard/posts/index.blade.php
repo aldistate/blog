@@ -7,6 +7,12 @@
 
   <div class="table-responsive">
     <a href="/dashboard/posts/create" class="btn btn-primary mb-3">Create New Post</a>
+    {{-- kondisi jika data berhasil ditambahkan --}}
+    @if (session()->has('sukses'))
+      <div class="alert alert-success col-sm-3 text-center" role="alert">
+        <span data-feather="check"></span> {{ session('sukses') }}
+      </div>
+    @endif
     <table class="table table-striped table-sm text-center">
       <thead>
         <tr>
