@@ -52,7 +52,7 @@ class DashboardPostController extends Controller
 
         // memasukan data sesuai dengan user yg sedang login
         $validatedData['user_id'] = auth()->user()->id;
-        // membuat excerpt dengan limit 100 ke dalam tabel database
+        // membuat excerpt dengan limit 100 huruf ke dalam tabel database
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
 
         // mengirim data ke model post
@@ -83,7 +83,10 @@ class DashboardPostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('dashboard.posts.edit', [
+            'post' => $post,
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -95,7 +98,32 @@ class DashboardPostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // validasi data yg mau di update ke database
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'body' => 'required',
+        ];
+
+        // kondisi jika yg diinput tidak sama dengan yg didatabase
+        // jika sama, slug yg diinput tidak harus unik
+        if ($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        // memasukan data sesuai dengan user yg sedang login
+        $validatedData['user_id'] = auth()->user()->id;
+        // membuat excerpt dengan limit 100 huruf ke dalam tabel database
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 100);
+
+        // mengirim(update) data ke model post
+        Post::where('id', $post->id)
+            ->update($validatedData);
+
+        // redirect ke halaman my posts
+        return redirect('/dashboard/posts')->with('sukses', 'Data berhasil diupdate!!');
     }
 
     /**
@@ -106,7 +134,11 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        // mengahapus postingan berdasarkan id dari model Post
+        Post::destroy($post->id);
+
+        // redirect ke halaman my post beserta feedback hapusnya
+        return redirect('/dashboard/posts')->with('sukses', 'Post berhasil dihapus!');
     }
 
     public function checkSlug(Request $request)

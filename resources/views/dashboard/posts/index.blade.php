@@ -9,11 +9,12 @@
     <a href="/dashboard/posts/create" class="btn btn-primary mb-3">Create New Post</a>
     {{-- kondisi jika data berhasil ditambahkan --}}
     @if (session()->has('sukses'))
-      <div class="alert alert-success col-sm-3 text-center" role="alert">
+      <div class="alert alert-success col-lg-3 text-center" role="alert">
         <span data-feather="check"></span> {{ session('sukses') }}
       </div>
     @endif
     <table class="table table-striped table-sm text-center">
+      <caption>List of post</caption>
       <thead>
         <tr>
           <th scope="col">No</th>
@@ -30,8 +31,12 @@
           <td>{{ $post->category->name }}</td>
           <td>
             <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info mx-1"><span data-feather="eye"></span></a>
-            <a href="" class="badge bg-warning mx-1"><span data-feather="edit"></span></a>
-            <a href="" class="badge bg-danger mx-1"><span data-feather="trash-2"></span></a>
+            <a href="/dashboard/posts/{{ $post->slug }}/edit" class="badge bg-warning mx-1"><span data-feather="edit"></span></a>
+            <form action="/dashboard/posts/{{ $post->slug }}" method="POST" class="d-inline">
+              @method('delete')
+              @csrf
+              <button class="badge bg-danger border-0" onclick="return confirm('Apa anda yakin ingin menghapusnya?')"><span data-feather="trash-2"></span></button>
+            </form>
           </td>
         </tr>
         @endforeach
