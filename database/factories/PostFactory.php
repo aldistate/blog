@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'body' => collect($this->faker->paragraphs(mt_rand(2, 6)))
                         ->map(fn($p) => "<p>$p</p>")
                         ->implode(''),
-            'user_id' => mt_rand(1,4),
+            'user_id' => mt_rand(1,6),
             'category_id' => mt_rand(1,3),
         ];
     }

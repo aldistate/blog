@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
     {
         
 
-        // User::create([
-        //     'name' => 'Aldi Putra Nawasta',
-        //     'email' => 'aldistate@yahoo.com',
-        //     'slug' => 'aldi-putra-nawasta',
-        //     'password' => bcrypt('12345')
-        // ]);
+        User::create([
+            'name' => 'Aldi Putra Nawasta',
+            'email' => 'aldistate@yahoo.com',
+            'slug' => 'aldi-putra-nawasta',
+            'password' => bcrypt('aldistate')
+        ]);
 
         // User::create([
         //     'name' => 'Eliza Alya Safira',
@@ -32,24 +32,24 @@ class DatabaseSeeder extends Seeder
         //     'password' => bcrypt('12345')
         // ]);
 
-        // User::factory(5)->create();
+        User::factory(5)->create();
 
-        // Category::create([
-        //     'name' => 'Programmer',
-        //     'slug' => 'programmer'
-        // ]);
+        Category::create([
+            'name' => 'Programmer',
+            'slug' => 'programmer'
+        ]);
 
-        // Category::create([
-        //     'name' => 'Designer',
-        //     'slug' => 'designer'
-        // ]);
+        Category::create([
+            'name' => 'Designer',
+            'slug' => 'designer'
+        ]);
 
-        // Category::create([
-        //     'name' => 'Multimedia',
-        //     'slug' => 'multimedia'
-        // ]);
+        Category::create([
+            'name' => 'Multimedia',
+            'slug' => 'multimedia'
+        ]);
 
-        Post::factory(10)->create();
+        Post::factory(35)->create();
 
         // Post::create([
         //     'title' => 'Judul Pertama',

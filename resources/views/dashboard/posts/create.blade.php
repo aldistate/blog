@@ -7,8 +7,9 @@
   </div>
 
   <div class="col-lg-8">
-    <form method="POST" action="/dashboard/posts">
+    <form method="POST" action="/dashboard/posts" enctype="multipart/form-data">
       @csrf
+      {{-- inputan file --}}
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required autofocus>
@@ -18,6 +19,7 @@
             </div>
           @enderror
       </div>
+      {{-- inputan slug --}}
       <div class="mb-3">
         <label for="slug" class="form-label">Slug</label>
         <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" value="{{ old('slug') }}" required>
@@ -27,6 +29,7 @@
             </div>
           @enderror
       </div>
+      {{-- inputan category --}}
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
         <select class="form-select" name="category_id">
@@ -39,6 +42,17 @@
           @endforeach
         </select>
       </div>
+      {{-- inputan file --}}
+      <div class="mb-3">
+        <label for="image" class="form-label">Post Image</label>
+        <input class="form-control @error('image') is-invalid @enderror" type="file" id="image" name="image">
+          @error('image')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
+          @enderror
+      </div>
+      {{-- inputan body --}}
       <div class="mb-3">
         <label for="body" class="form-label">Body</label>
         <input id="body" type="hidden" name="body" value="{{ old('body') }}">

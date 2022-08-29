@@ -23,7 +23,14 @@
 {{-- hero --}}
 @if ($posts->count())
   <div class="card mb-3 border-dark">
-    <img src="https://source.unsplash.com/random/1200x400?{{ $posts[0]->category->name }}" class="card-img-top" alt="{{ $posts[0]->category->name }}">
+    {{-- kondisi jika ada image didalam database maka pakai yg ada di database, jika tidak, tetap pakai API Unsplash --}}
+    @if ($posts[0]->image)
+      <div style="max-height: 350px; max-width: 1200px; overflow: hidden;">
+        <img src="{{ asset('storage/' . $posts[0]->image) }}" alt="{{ $posts[0]->category->name }}" class="card-img-top">
+      </div>
+    @else
+      <img src="https://source.unsplash.com/random/1200x400?{{ $posts[0]->category->name }}" class="card-img-top" alt="{{ $posts[0]->category->name }}">
+    @endif
     <div class="card-body text-center bg-dark text-light">
       <h3 class="card-title"><a href="/posts/{{ $posts[0]->slug }}" class="text-decoration-none">{{ $posts[0]->title }}</a></h3>
       <p>
@@ -45,7 +52,14 @@
         <div class="position-absolute p-1" style="background-color: rgba(0, 0, 0, 0.5);">
           <a href="/blog?category={{ $post->category->slug }}" class="text-decoration-none text-light">{{ $post->category->name }}</a>
         </div>
-        <img src="https://source.unsplash.com/random/500x300?{{ $post->category->name }}" class="card-img-top" alt="{{ $post->category->name }}">
+        {{-- kondisi jika ada image didalam database maka pakai yg ada di database, jika tidak, tetap pakai API Unsplash --}}
+        @if ($post->image)
+          <div style="max-height: 300px; max-width: 500px; overflow: hidden;">
+            <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="card-img-top">
+          </div>
+        @else
+          <img src="https://source.unsplash.com/random/500x300?{{ $post->category->name }}" class="card-img-top" alt="{{ $post->category->name }}">
+        @endif
         <div class="card-body">
           <h5 class="card-title"><a href="/posts/{{ $post->slug }}" class="text-decoration-none">{{ $post->title }}</a></h5>
           <p>

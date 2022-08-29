@@ -13,7 +13,14 @@
         <button class="btn btn-danger" onclick="return confirm('Apa anda yakin ingin menghapusnya?')"><span data-feather="trash-2"></span> Delete</button>
       </form>
 
-      <img src="https://source.unsplash.com/random/1200x400?{{ $post->category->name }}" alt="{{ $post->category->name }}" class="img-fluid my-3">
+      {{-- kondisi jika ada image didalam database maka pakai yg ada di database, jika tidak, tetap pakai API Unsplash --}}
+      @if ($post->image)
+        <div style="max-height: 350px; max-width: 1200px; overflow: hidden;" class="my-3">
+          <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->category->name }}" class="img-fluid my-3">
+        </div>
+      @else
+        <img src="https://source.unsplash.com/random/1200x400?{{ $post->category->name }}" alt="{{ $post->category->name }}" class="img-fluid my-3">
+      @endif
 
       <article class="text-justify">
         {!! $post->body !!}
