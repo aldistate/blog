@@ -25,6 +25,7 @@ class Post extends Model
             return $query->where('title', 'like', '%' . $search . '%')
                         ->orWhere('body', 'like', '%' . $search . '%');
         });
+        
 
         // mencari berdasarkan kategori
         $query->when($filters['category'] ?? false, function($query, $category) {
