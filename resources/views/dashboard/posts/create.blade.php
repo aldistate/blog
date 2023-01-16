@@ -9,7 +9,7 @@
   <div class="col-lg-8">
     <form method="POST" action="/dashboard/posts" enctype="multipart/form-data">
       @csrf
-      {{-- inputan file --}}
+      {{-- inputan title --}}
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required autofocus>

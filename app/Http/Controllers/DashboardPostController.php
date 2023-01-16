@@ -7,6 +7,7 @@ use App\Models\Post;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardPostController extends Controller
 {
@@ -108,6 +109,7 @@ class DashboardPostController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'category_id' => 'required',
+            'image' => 'image|file|max:1024',
             'body' => 'required',
         ];
 
@@ -118,6 +120,15 @@ class DashboardPostController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+
+        // kondisi jika ada image lama, maka update image baru, dan image pada storage dihapus
+        if ($request->file('image')) {
+            // jika ada image lama, storage image lama akan dihapus, dan di update dengan yg baru
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         // memasukan data sesuai dengan user yg sedang login
         $validatedData['user_id'] = auth()->user()->id;
@@ -140,6 +151,11 @@ class DashboardPostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // menghapus image pada storage
+        if ($post->image) {
+            Storage::delete($post->image);
+        }
+
         // mengahapus postingan berdasarkan id dari model Post
         Post::destroy($post->id);
 
