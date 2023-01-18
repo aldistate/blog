@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\LoginController;
@@ -78,3 +79,6 @@ Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'check
 
 // halaman crud posts
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
+
+// halaman admin category
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('auth');
