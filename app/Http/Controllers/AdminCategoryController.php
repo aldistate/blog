@@ -14,6 +14,7 @@ class AdminCategoryController extends Controller
      */
     public function index()
     {
+        // $this->authorize('admin'); ini untuk authorize admin yang dibuat di authserviceprovider
         return view('dashboard.categories.index', [
             'categories' => Category::all()
         ]);
